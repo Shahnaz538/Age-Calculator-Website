@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-[#3ee7c0] via-[#343e9a] to-[#8b2daf] h-screen flex flex-col justify-between">
+    <main class="flex-grow flex items-center justify-center">
+       <div class=" bg-opacity-10 backdrop-blur-md rounded-2xl shadow-xl p-8 w-full max-w-md bg-transparent ">
+          <div class=" bg-transparent text-center mx-auto text-white">
+             <h1 class="text-2xl font-bold text-white container  bg-transparent text-center mx-auto">Age Calculator</h1>
+             <div class="p-1 rounded-lg my-4 shadow-md text-white" ><input type="date" id="date" ></div>
+             <button  onclick="ageCal()" class="cursor-pointer py-2 px-6 my-5 transition-transform duration-300 transform hover:scale-110 shadow-md mb-10">
+              Calculate Age
+             </button>
+             <p id="result"></p>
+          </div>
+      </div>
+    </main>
+ 
+
+  
+  <script>
+    let userInput = document.getElementById("date");
+    userInput.max = new Date().toISOString().split("T")[0]; //it will create a limit of this day 
+
+    let result = document.getElementById("result"); 
+
+    function ageCal(){
+        let birthdate = new Date(userInput.value);
+        let d1= birthdate.getDate();
+        let m1= birthdate.getMonth ();
+        let y1= birthdate.getFullYear();
+
+        let today= new Date();
+
+        let d2=today.getDate();
+        let m2=today.getMonth() ;
+        let y2 = today.getFullYear();
+
+        let d3, m3, y3;
+
+        y3= y2- y1;
+        if(m2 >= m1){
+            m3= m2-m1;
+        }
+        else{
+            y3--;
+            m3= 12+m2-m1;
+        }
+
+        if(d2 >= d1){
+          d3 = d2-d1;}
+          else {
+            m3--;
+            d3= getDaysInMonth(y1,m1) + d2-d1;
+
+          }
+          if(m3 < 0){
+            m3 =11;
+            y3--;
+          }
+
+          result.innerHTML= `<span class='box'>${y3} </span> <span class='box'>${m3} </span>  <span class='box'>${d3} </span> <br> Years &nbsp;&nbsp;&nbsp;&nbsp; Months &nbsp;&nbsp;&nbsp;&nbsp; Days `;
+         
+
+          // console.log(y3, m3, d3)
+          function getDaysInMonth(year, month){
+            
+            return new Date(year, month, 0).getDate();
+          }
+        }
+        
+    
+  </script>
+
+  <footer class="bg-transparent text-white text-center py-4">
+    <p class="text-sm">
+      © 2025 by 
+      <a href="https://your-portfolio-link.com" target="_blank" class="hover:underline">
+        Shahnaz Memon
+      </a>. All rights reserved.
+    </p>
+  </footer>
+</body>
+
+</html>
+
+<!-- 
+npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch -->
